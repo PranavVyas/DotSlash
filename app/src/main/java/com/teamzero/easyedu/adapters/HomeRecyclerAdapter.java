@@ -1,10 +1,15 @@
 package com.teamzero.easyedu.adapters;
 
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.teamzero.easyedu.R;
+import com.teamzero.easyedu.models.UploadDocumentModel;
+
+import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,20 +18,31 @@ import butterknife.ButterKnife;
 
 public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapter.HomeItemHolder> {
 
+    private ArrayList<UploadDocumentModel> dataItem;
+    private LayoutInflater inflater;
+
+    public HomeRecyclerAdapter(ArrayList<UploadDocumentModel> uploadDocumentModels, Context context) {
+        this.dataItem = uploadDocumentModels;
+        inflater = LayoutInflater.from(context);
+    }
+
     @NonNull
     @Override
     public HomeItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View listItem = inflater.inflate(R.layout.item_holder_recycler_home, parent, false);
+        return new HomeItemHolder(listItem);
     }
 
     @Override
     public void onBindViewHolder(@NonNull HomeItemHolder holder, int position) {
-
+        holder.tvItemName.setText(dataItem.get(position).getTitle());
+        holder.tvName.setText(dataItem.get(position).getUserName());
+        holder.tvSubject.setText(dataItem.get(position).getSubject());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return dataItem.size();
     }
 
     class HomeItemHolder extends RecyclerView.ViewHolder {
@@ -37,6 +53,8 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         TextView tvName;
         @BindView(R.id.tv_reycler_home_date)
         TextView tvDate;
+        @BindView(R.id.tv_reycler_home_subject)
+        TextView tvSubject;
 
         public HomeItemHolder(@NonNull View itemView) {
             super(itemView);
