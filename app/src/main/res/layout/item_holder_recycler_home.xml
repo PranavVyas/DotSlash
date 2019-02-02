@@ -25,6 +25,16 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_reycler_home_name" />
 
     <TextView
+        android:id="@+id/tv_reycler_home_subject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_reycler_home_item_name" />
+
+    <TextView
         android:id="@+id/tv_reycler_home_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,5 +44,5 @@
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_reycler_home_item_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_reycler_home_subject" />
 </androidx.constraintlayout.widget.ConstraintLayout>
