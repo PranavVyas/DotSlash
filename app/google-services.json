@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "414636249105",
+    "firebase_url": "https://dotslash-8eb9d.firebaseio.com",
+    "project_id": "dotslash-8eb9d",
+    "storage_bucket": "dotslash-8eb9d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:414636249105:android:71932a414997e3f8",
+        "android_client_info": {
+          "package_name": "com.teamzero.easyedu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "414636249105-pdilpcvsdj4kq2tnl128c1db3vq71t2g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.teamzero.easyedu",
+            "certificate_hash": "90e76745a62d989c1dc1b98010066f663d2d4406"
+          }
+        },
+        {
+          "client_id": "414636249105-oktufccbj6ogvcnd41ohn62ep2mgo27n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIrG7-X7FW_T6JsKMevX3s7bFyO9oL7fM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "414636249105-oktufccbj6ogvcnd41ohn62ep2mgo27n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
