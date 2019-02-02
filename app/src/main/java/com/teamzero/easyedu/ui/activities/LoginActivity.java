@@ -57,6 +57,8 @@ public class LoginActivity extends AppCompatActivity {
                             .setIsSmartLockEnabled(false)
                             .build(), 200
             );
+        } else {
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
         }
     }
 }
