@@ -5,13 +5,13 @@
     android:orientation="vertical">
 
     <ImageView
-        android:layout_margin="8dp"
         android:id="@+id/profile_picture"
-        android:layout_gravity="center"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
         android:layout_width="64dp"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="8dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:clickable="false"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:hint="Username"
+            android:hint="@string/username"
             android:inputType="textEmailAddress"
             android:textColorHint="@color/accent" />
 
@@ -43,7 +43,7 @@
             android:clickable="false"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:hint="Email"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:textColorHint="@color/accent" />
 

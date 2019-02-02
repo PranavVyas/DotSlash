@@ -7,18 +7,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -38,7 +39,6 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -112,20 +112,17 @@ public class UploadDocumentActivity extends AppCompatActivity {
     private void setUpLiveData() {
         Query query = mCollectionReference.whereEqualTo("branch", selectedBranch).whereEqualTo("sem", selectedSem);
         FireStoreQueryLiveData subjectLiveData = new FireStoreQueryLiveData(query);
-        subjectLiveData.observe(this, new Observer<QuerySnapshot>() {
-            @Override
-            public void onChanged(QuerySnapshot queryDocumentSnapshots) {
-                if (queryDocumentSnapshots.isEmpty()) {
-                    Toast.makeText(UploadDocumentActivity.this, "Subject is not available", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                List<SubjectModel> subjectModels = queryDocumentSnapshots.toObjects(SubjectModel.class);
-                subjects = new ArrayList<>();
-                for (int i = 0; i < subjectModels.size(); i++) {
-                    subjects.add(subjectModels.get(i).getSubject());
-                }
-                setUpSubjectSpinner();
+        subjectLiveData.observe(this, queryDocumentSnapshots -> {
+            if (queryDocumentSnapshots.isEmpty()) {
+                Toast.makeText(UploadDocumentActivity.this, "Subject is not available", Toast.LENGTH_SHORT).show();
+                return;
             }
+            List<SubjectModel> subjectModels = queryDocumentSnapshots.toObjects(SubjectModel.class);
+            subjects = new ArrayList<>();
+            for (int i = 0; i < subjectModels.size(); i++) {
+                subjects.add(subjectModels.get(i).getSubject());
+            }
+            setUpSubjectSpinner();
         });
     }
 
@@ -250,72 +247,52 @@ public class UploadDocumentActivity extends AppCompatActivity {
     }
 
     private void startUploadingFile(Uri uri) {
+        Snackbar snackbar = Snackbar.make(findViewById(R.id.parent_view), "Uploading...", Snackbar.LENGTH_INDEFINITE);
+        snackbar.show();
         child = mRef.child("images/" + userName + "/items/" + name + System.currentTimeMillis() + uri.getLastPathSegment());
         uploadTask = child.putFile(uri);
         viewModel.setUploadTask(uploadTask);
-        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                getDownloadUrl(taskSnapshot);
-                viewModel.setUploadTask(null);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(UploadDocumentActivity.this, "Error while uploading image in database", Toast.LENGTH_SHORT).show();
-                Logger.d("Failed due to " + e.getMessage());
-                viewModel.setUploadTask(null);
-                btnUpload.setEnabled(false);
-            }
-        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                long progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                Toast.makeText(UploadDocumentActivity.this, "Progress : " + progress, Toast.LENGTH_SHORT).show();
-            }
+        uploadTask.addOnSuccessListener(taskSnapshot -> {
+            getDownloadUrl(taskSnapshot);
+            viewModel.setUploadTask(null);
+            snackbar.dismiss();
+        }).addOnFailureListener(e -> {
+            Toast.makeText(UploadDocumentActivity.this, "Error while uploading image in database", Toast.LENGTH_SHORT).show();
+            Logger.d("Failed due to " + e.getMessage());
+            viewModel.setUploadTask(null);
+            btnUpload.setEnabled(false);
+        }).addOnProgressListener(taskSnapshot -> {
+            long progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+            Toast.makeText(UploadDocumentActivity.this, "Progress : " + progress, Toast.LENGTH_SHORT).show();
+            snackbar.setText("Uploading... " + progress + "% Uploaded..");
         });
     }
     //TODO Solve Bug after this
 
     private void getDownloadUrl(UploadTask.TaskSnapshot taskSnapshot) {
-        taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                downloadUri = uri;
-                btnUpload.setEnabled(true);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                downloadUri = null;
-                Toast.makeText(UploadDocumentActivity.this, "Download URI not found", Toast.LENGTH_SHORT).show();
-                btnUpload.setEnabled(false);
-            }
+        taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(uri -> {
+            downloadUri = uri;
+            btnUpload.setEnabled(true);
+        }).addOnFailureListener(e -> {
+            downloadUri = null;
+            Toast.makeText(UploadDocumentActivity.this, "Download URI not found", Toast.LENGTH_SHORT).show();
+            btnUpload.setEnabled(false);
         });
     }
 
     private void uploadContinueIfAvailable() {
         if (uploadTask != null) {
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    getDownloadUrl(taskSnapshot);
-                    viewModel.setUploadTask(null);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(UploadDocumentActivity.this, "Error while uploading image in database", Toast.LENGTH_SHORT).show();
-                    Logger.d("Failed due to " + e.getMessage());
-                    viewModel.setUploadTask(null);
-                    btnUpload.setEnabled(false);
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    long progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                    Toast.makeText(UploadDocumentActivity.this, "Progress : " + progress, Toast.LENGTH_SHORT).show();
-                }
+            uploadTask.addOnSuccessListener(taskSnapshot -> {
+                getDownloadUrl(taskSnapshot);
+                viewModel.setUploadTask(null);
+            }).addOnFailureListener(e -> {
+                Toast.makeText(UploadDocumentActivity.this, "Error while uploading image in database", Toast.LENGTH_SHORT).show();
+                Logger.d("Failed due to " + e.getMessage());
+                viewModel.setUploadTask(null);
+                btnUpload.setEnabled(false);
+            }).addOnProgressListener(taskSnapshot -> {
+                long progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                Toast.makeText(UploadDocumentActivity.this, "Progress : " + progress, Toast.LENGTH_SHORT).show();
             });
         }
     }
@@ -352,18 +329,10 @@ public class UploadDocumentActivity extends AppCompatActivity {
 
     private void startUploadInDatabase(UploadDocumentModel model) {
         CollectionReference uploads = mDb.collection("Uploads");
-        uploads.add(model).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Toast.makeText(UploadDocumentActivity.this, "Uploaded Just Now", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(UploadDocumentActivity.this, "Error while Uploading Data in the Databse", Toast.LENGTH_SHORT).show();
-            }
-        });
+        uploads.add(model).addOnSuccessListener(documentReference -> {
+            Toast.makeText(UploadDocumentActivity.this, "Uploaded Just Now", Toast.LENGTH_SHORT).show();
+            finish();
+        }).addOnFailureListener(e -> Toast.makeText(UploadDocumentActivity.this, "Error while Uploading Data in the Databse", Toast.LENGTH_SHORT).show());
     }
 
     private void refreshSubjectSpinner() {

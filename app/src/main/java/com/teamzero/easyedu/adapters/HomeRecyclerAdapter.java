@@ -1,5 +1,8 @@
 package com.teamzero.easyedu.adapters;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +23,11 @@ import butterknife.ButterKnife;
 public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapter.HomeItemHolder> {
 
     private List<UploadDocumentModel> dataItems;
+    private Context context;
+
+    public HomeRecyclerAdapter(Context context) {
+        this.context = context;
+    }
 
     @NonNull
     @Override
@@ -52,9 +60,10 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         @BindView(R.id.tv_reycler_home_subject)
         TextView tvSubject;
 
-        public HomeItemHolder(@NonNull View itemView) {
+        HomeItemHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(v -> context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(dataItems.get(getAdapterPosition()).getUrl()))));
         }
     }
 

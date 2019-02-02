@@ -22,6 +22,16 @@
 
     <string name="key_pref_select_following">SELECT_FOLLOWING</string>
     <string name="title_pref_select_following">Select Following</string>
+    <string name="sign_in">Sign In</string>
+    <string name="fetch_subjects">Fetch Subjects</string>
+    <string name="no_document_uploaded">No Document Uploaded</string>
+    <string name="upload_document">Upload</string>
+    <string name="select_document">Select Document</string>
+    <string name="input_name_of_item">Input Name Of Item</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="please_select_subject_to_start_following">Please select subject to start following</string>
+    <string name="select_subjects">Select</string>
 
 
 </resources>

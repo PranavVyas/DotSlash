@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.activities.SelectFollowingActivity">
 
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_select_following"
         android:layout_width="0dp"
@@ -16,7 +15,8 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@android:color/white" />
 
     <Spinner
         android:id="@+id/spinner_select_following_sem"
@@ -36,7 +36,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Please select subject to start following"
+        android:text="@string/please_select_subject_to_start_following"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_select_following" />
@@ -59,7 +59,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Button"
+        android:text="@string/select_subjects"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_select_following_branch" />
@@ -76,5 +76,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_select_following_fetch_subjects"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/btn_select_following_fetch_subjects" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

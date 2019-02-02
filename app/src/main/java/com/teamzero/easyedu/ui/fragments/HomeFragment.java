@@ -72,7 +72,7 @@ public class HomeFragment extends Fragment implements SharedPreferences.OnShared
     }
 
     private void setUpRecyclerView() {
-        mAdapter = new HomeRecyclerAdapter();
+        mAdapter = new HomeRecyclerAdapter(getContext());
         mAdapter.setHasStableIds(true);
         rvMain.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         rvMain.setAdapter(mAdapter);
