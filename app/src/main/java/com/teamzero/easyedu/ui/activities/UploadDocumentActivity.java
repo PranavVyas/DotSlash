@@ -351,6 +351,7 @@ public class UploadDocumentActivity extends AppCompatActivity {
             model.setTitle(name);
             model.setUserName(userName);
             startUploadInDatabase(model);
+            //TODO handle life cycle changes in spinner and variables
         }
     }
 
