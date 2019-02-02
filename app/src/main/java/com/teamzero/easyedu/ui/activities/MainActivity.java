@@ -11,6 +11,7 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.teamzero.easyedu.R;
 import com.teamzero.easyedu.ui.fragments.HomeFragment;
 import com.teamzero.easyedu.ui.fragments.ProfileFragment;
+import com.teamzero.easyedu.ui.fragments.SettingsFragment;
 import com.teamzero.easyedu.utils.NavigationUtils;
 import com.teamzero.easyedu.viewmodel.MainViewModel;
 
@@ -54,7 +55,8 @@ public class MainActivity extends AppCompatActivity implements NavigationUtils.O
                 break;
 
             case NavigationUtils.ID_SETTINGS:
-                //TODO Implement Here
+                SettingsFragment settingsFragment = new SettingsFragment();
+                swapFragment(settingsFragment, identifier);
                 mainViewModel.setCurrentFragmentId(identifier);
                 break;
 
