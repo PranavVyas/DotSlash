@@ -2,13 +2,15 @@ package com.teamzero.easyedu.database.followingdatabase;
 
 import android.content.Context;
 
+import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+@Database(entities = FollowingEntry.class, version = 1, exportSchema = false)
 public abstract class FollowingDatabase extends RoomDatabase {
 
-    public static final String DB_NAME = "Following Database";
-    public static final Object LOCK = new Object();
+    private static final String DB_NAME = "Following Database";
+    private static final Object LOCK = new Object();
     private static FollowingDatabase sInstance;
 
     public static FollowingDatabase getInstance(Context context) {

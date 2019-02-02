@@ -69,6 +69,9 @@ dependencies {
     implementation 'androidx.preference:preference:1.0.0'
     implementation 'com.facebook.stetho:stetho:1.5.0'
 
+    implementation "androidx.room:room-runtime:2.1.0-alpha04"
+    annotationProcessor "androidx.room:room-compiler:2.1.0-alpha04"
+
 
 }
 apply plugin: 'com.google.gms.google-services'
