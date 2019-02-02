@@ -1,10 +1,5 @@
 package com.teamzero.easyedu.ui.activities;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -16,6 +11,11 @@ import com.teamzero.easyedu.R;
 import java.util.Arrays;
 import java.util.List;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class LoginActivity extends AppCompatActivity {
 
     @Override
@@ -24,7 +24,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         isUserSigninIn();
-
     }
 
     @OnClick (R.id.sign_in_button)

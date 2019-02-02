@@ -19,8 +19,9 @@ public class NavigationUtils {
 
     public static final int ID_HOME = 1;
     public static final int ID_SETTINGS = 2;
+    public static final int ID_SIGN_OUT = 3;
 
-    public Drawer getDrawer(Activity activity, Toolbar toolbar) {
+    public static Drawer getDrawer(Activity activity, Toolbar toolbar) {
         OnDrawerItemSelectedListener mCallback = (OnDrawerItemSelectedListener) activity;
         PrimaryDrawerItem home = new PrimaryDrawerItem()
                 .withName("Home")
@@ -41,6 +42,17 @@ public class NavigationUtils {
                         return false;
                     }
                 });
+
+        PrimaryDrawerItem signOut = new PrimaryDrawerItem()
+                .withName("Sign Out")
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        mCallback.onDrawerItemSelected(ID_SIGN_OUT);
+                        return false;
+                    }
+                });
+
 
         AccountHeader accountHeader = new AccountHeaderBuilder()
                 .withActivity(activity)
@@ -67,7 +79,8 @@ public class NavigationUtils {
                 )
                 .addDrawerItems(
                         home,
-                        settings
+                        settings,
+                        signOut
                 )
                 .build();
 
