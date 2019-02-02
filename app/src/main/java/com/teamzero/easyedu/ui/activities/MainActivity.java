@@ -23,10 +23,10 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements NavigationUtils.OnDrawerItemSelectedListener {
 
-    private MainViewModel mainViewModel;
-    private int currentPositionInViewPager = 0;
     @BindView(R.id.toolbar_main)
     Toolbar toolbar;
+    private MainViewModel mainViewModel;
+    private int currentPositionInViewPager = 0;
     private Drawer drawer;
     private int currentFragmentId;
 
@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity implements NavigationUtils.O
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        drawer = NavigationUtils.getDrawer(this, toolbar);
+        setSupportActionBar(toolbar);
+        drawer = NavigationUtils.getDrawer(this, toolbar, mainViewModel.getCurrUser());
         currentFragmentId = mainViewModel.getCuurentFragmentId();
         executeAction(currentFragmentId);
     }
@@ -52,6 +53,11 @@ public class MainActivity extends AppCompatActivity implements NavigationUtils.O
                 break;
 
             case NavigationUtils.ID_SETTINGS:
+                //TODO Implement Here
+                mainViewModel.setCurrentFragmentId(identifier);
+                break;
+
+            case NavigationUtils.ID_MY_PROFILE:
                 //TODO Implement Here
                 mainViewModel.setCurrentFragmentId(identifier);
                 break;

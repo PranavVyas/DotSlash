@@ -1,17 +1,17 @@
 package com.teamzero.easyedu.ui.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.teamzero.easyedu.GlideApp;
 import com.teamzero.easyedu.R;
+
+import androidx.appcompat.app.AppCompatActivity;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -29,8 +29,8 @@ public class ProfileActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
-            //TODO: circular
-            Glide.with(this).load(currentUser.getPhotoUrl()).into(profilePicture);
+            //TODO: Set Place Holder
+            GlideApp.with(this).load(currentUser.getPhotoUrl()).circleCrop().into(profilePicture);
             profileUsername.setText(currentUser.getDisplayName());
             profileEmail.setText(currentUser.getEmail());
         }

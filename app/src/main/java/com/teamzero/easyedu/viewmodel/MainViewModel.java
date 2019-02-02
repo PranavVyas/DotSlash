@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.teamzero.easyedu.utils.NavigationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -16,6 +17,7 @@ public class MainViewModel extends AndroidViewModel {
     public MainViewModel(@NonNull Application application) {
         super(application);
         currUser = FirebaseAuth.getInstance().getCurrentUser();
+        identifier = NavigationUtils.ID_HOME;
     }
 
     public FirebaseUser getCurrUser() {
