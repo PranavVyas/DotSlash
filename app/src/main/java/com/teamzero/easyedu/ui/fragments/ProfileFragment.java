@@ -1,6 +1,15 @@
 package com.teamzero.easyedu.ui.fragments;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.teamzero.easyedu.R;
+import com.teamzero.easyedu.utils.GlideApp;
+import com.teamzero.easyedu.viewmodel.MainViewModel;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,16 +17,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.teamzero.easyedu.R;
-import com.teamzero.easyedu.viewmodel.MainViewModel;
 
 public class ProfileFragment extends Fragment {
 
@@ -45,9 +44,10 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //TODO Set Place Holder and error imahe
         if(getActivity() != null)
             mainViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
-        Glide.with(this).load(mainViewModel.getCurrUser().getPhotoUrl()).into(profilePicture);
+        GlideApp.with(this).load(mainViewModel.getCurrUser().getPhotoUrl()).circleCrop().into(profilePicture);
         profileUsername.setText(mainViewModel.getCurrUser().getDisplayName());
         profileEmail.setText(mainViewModel.getCurrUser().getEmail());
     }

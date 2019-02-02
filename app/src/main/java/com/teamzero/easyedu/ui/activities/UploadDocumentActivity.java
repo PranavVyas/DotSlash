@@ -28,6 +28,7 @@ import com.teamzero.easyedu.R;
 import com.teamzero.easyedu.models.SubjectModel;
 import com.teamzero.easyedu.models.UploadDocumentModel;
 import com.teamzero.easyedu.utils.FireStoreQueryLiveData;
+import com.teamzero.easyedu.viewmodel.MainViewModel;
 import com.teamzero.easyedu.viewmodel.UploadDocumentViewModel;
 
 import java.util.ArrayList;
@@ -79,6 +80,7 @@ public class UploadDocumentActivity extends AppCompatActivity {
 
     private UploadTask uploadTask;
     private UploadDocumentViewModel viewModel;
+    private MainViewModel mainViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +88,8 @@ public class UploadDocumentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_upload_document);
         ButterKnife.bind(this);
         viewModel = ViewModelProviders.of(this).get(UploadDocumentViewModel.class);
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        userName = mainViewModel.getCurrUser().getDisplayName();
         uploadTask = viewModel.getUploadTask();
         pupulateUI();
     }
@@ -93,22 +97,6 @@ public class UploadDocumentActivity extends AppCompatActivity {
     private void pupulateUI() {
         initDatabase();
         setUpSpinners();
-//        etName.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                name = s.toString().trim();
-//            }
-//        });
         setUpSubjectSpinner();
         uploadContinueIfAvailable();
         btnUpload.setEnabled(false);
@@ -187,6 +175,9 @@ public class UploadDocumentActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedSubject = subjects.get(position);
                 Toast.makeText(UploadDocumentActivity.this, "Selected Subject : " + subjects.get(position), Toast.LENGTH_SHORT).show();
+//                if(!validateSubject()){
+//                    refreshSubjectSpinner();
+//                }
             }
 
             @Override
@@ -205,6 +196,9 @@ public class UploadDocumentActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedBranch = branches.get(position);
                 Toast.makeText(UploadDocumentActivity.this, "Selected Branch" + branches.get(position), Toast.LENGTH_SHORT).show();
+//                if(!validateSubject()){
+//                    refreshSubjectSpinner();
+//                }
             }
 
             @Override
@@ -228,7 +222,7 @@ public class UploadDocumentActivity extends AppCompatActivity {
         getIntent.setType("*/*");
 
         Intent pickIntent = new Intent(Intent.ACTION_PICK);
-        pickIntent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        pickIntent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "*/*");
 
         Intent chooserIntent = Intent.createChooser(getIntent, "Select Documents");
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{pickIntent});
@@ -281,6 +275,7 @@ public class UploadDocumentActivity extends AppCompatActivity {
             }
         });
     }
+    //TODO Solve Bug after this
 
     private void getDownloadUrl(UploadTask.TaskSnapshot taskSnapshot) {
         taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -361,6 +356,7 @@ public class UploadDocumentActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Toast.makeText(UploadDocumentActivity.this, "Uploaded Just Now", Toast.LENGTH_SHORT).show();
+                finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -368,5 +364,11 @@ public class UploadDocumentActivity extends AppCompatActivity {
                 Toast.makeText(UploadDocumentActivity.this, "Error while Uploading Data in the Databse", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void refreshSubjectSpinner() {
+        ArrayAdapter<String> adapterSubject = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new ArrayList<>(Arrays.asList("Please Select")));
+        selectedSubject = "";
+        spinnerSubject.setAdapter(adapterSubject);
     }
 }

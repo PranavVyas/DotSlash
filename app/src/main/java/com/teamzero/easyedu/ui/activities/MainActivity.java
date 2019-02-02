@@ -10,12 +10,14 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.mikepenz.materialdrawer.Drawer;
 import com.teamzero.easyedu.R;
 import com.teamzero.easyedu.ui.fragments.HomeFragment;
+import com.teamzero.easyedu.ui.fragments.ProfileFragment;
 import com.teamzero.easyedu.utils.NavigationUtils;
 import com.teamzero.easyedu.viewmodel.MainViewModel;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationUtils.O
         setSupportActionBar(toolbar);
         drawer = NavigationUtils.getDrawer(this, toolbar, mainViewModel.getCurrUser());
         currentFragmentId = mainViewModel.getCuurentFragmentId();
+        drawer.setSelection(currentFragmentId);
         executeAction(currentFragmentId);
     }
 
@@ -46,9 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationUtils.O
         switch (identifier) {
             case NavigationUtils.ID_HOME:
                 HomeFragment home = new HomeFragment();
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_main_container, home)
-                        .commit();
+                swapFragment(home, identifier);
                 mainViewModel.setCurrentFragmentId(identifier);
                 break;
 
@@ -58,7 +59,8 @@ public class MainActivity extends AppCompatActivity implements NavigationUtils.O
                 break;
 
             case NavigationUtils.ID_MY_PROFILE:
-                //TODO Implement Here
+                ProfileFragment profileFragment = new ProfileFragment();
+                swapFragment(profileFragment, identifier);
                 mainViewModel.setCurrentFragmentId(identifier);
                 break;
 
@@ -88,6 +90,13 @@ public class MainActivity extends AppCompatActivity implements NavigationUtils.O
                 Toast.makeText(MainActivity.this, "Failed to sign Out", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void swapFragment(Fragment newFragment, int identifier) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frame_main_container, newFragment)
+                .commit();
+        currentFragmentId = identifier;
     }
 
 

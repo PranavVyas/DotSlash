@@ -96,6 +96,7 @@ public class NavigationUtils {
                 .addDrawerItems(
                         home,
                         settings,
+                        myProfile,
                         signOut
                 )
                 .build();

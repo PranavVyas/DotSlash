@@ -20,5 +20,8 @@
 
     </string-array>
 
+    <string name="key_pref_select_following">SELECT_FOLLOWING</string>
+    <string name="title_pref_select_following">Select Following</string>
+
 
 </resources>

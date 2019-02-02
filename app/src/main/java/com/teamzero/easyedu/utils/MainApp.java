@@ -10,7 +10,6 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
-import com.teamzero.easyedu.GlideApp;
 import com.teamzero.easyedu.R;
 
 import androidx.multidex.MultiDexApplication;
