@@ -29,6 +29,7 @@ public class ProfileActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
+            //TODO: circular
             Glide.with(this).load(currentUser.getPhotoUrl()).into(profilePicture);
             profileUsername.setText(currentUser.getDisplayName());
             profileEmail.setText(currentUser.getEmail());
