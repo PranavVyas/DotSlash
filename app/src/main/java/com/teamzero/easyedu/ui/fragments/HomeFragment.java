@@ -20,7 +20,6 @@ import com.teamzero.easyedu.ui.activities.UploadDocumentActivity;
 import com.teamzero.easyedu.utils.FireStoreQueryLiveData;
 import com.teamzero.easyedu.utils.SharedPrefsUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -34,7 +33,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class HomeFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class HomeFragment extends Fragment
+        implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     @BindView(R.id.recycler_home_frag_main)
     RecyclerView rvMain;
@@ -42,7 +42,7 @@ public class HomeFragment extends Fragment implements SharedPreferences.OnShared
     FireStoreQueryLiveData queryLiveData;
     private FirebaseFirestore mDb;
     private CollectionReference collectionReference;
-    private List<String> followers = new ArrayList<>();
+    private List<String> followers;
 
     private HomeRecyclerAdapter mAdapter;
     private SharedPrefsUtils sharedPrefsUtils;
@@ -81,6 +81,7 @@ public class HomeFragment extends Fragment implements SharedPreferences.OnShared
     private void initDatabase() {
         mDb = FirebaseFirestore.getInstance();
         collectionReference = mDb.collection("Uploads");
+        followers = sharedPrefsUtils.getFollowList("SUBJECTS");
         refreshEntries();
     }
 
@@ -98,7 +99,8 @@ public class HomeFragment extends Fragment implements SharedPreferences.OnShared
     private Query getQuery() {
         Query query = collectionReference;
         for (int i = 0; i < followers.size(); i++) {
-            collectionReference.whereEqualTo("subject", followers.get(i));
+            Logger.d("Loop");
+            query = query.whereEqualTo("subject", followers.get(i));
         }
         return query;
     }

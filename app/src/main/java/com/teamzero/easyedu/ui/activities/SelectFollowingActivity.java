@@ -3,19 +3,16 @@ package com.teamzero.easyedu.ui.activities;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.teamzero.easyedu.R;
 import com.teamzero.easyedu.models.SubjectModel;
@@ -55,12 +52,14 @@ public class SelectFollowingActivity extends AppCompatActivity {
     private CollectionReference collectionReference;
     private SharedPrefsUtils sharedPreferencesUtils;
 
+    //    private SelectFollwingViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_following);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+//        viewModel = ViewModelProviders.of(this).get(SelectFollwingViewModel.class);
         branches = new ArrayList<>(Arrays.asList(this.getResources().getStringArray(R.array.branches)));
         sems = new ArrayList<>(Arrays.asList(this.getResources().getStringArray(R.array.sems)));
         sharedPreferencesUtils = new SharedPrefsUtils(this);
@@ -142,18 +141,16 @@ public class SelectFollowingActivity extends AppCompatActivity {
 
     }
 
-    private void setUpLinearLayout(List<SubjectModel> subjectModels) {
-        for (int i = 0; i < subjectModels.size(); i++) {
-            LinearLayout secondaryContainer = new LinearLayout(this);
-            secondaryContainer.setOrientation(LinearLayout.HORIZONTAL);
-            secondaryContainer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            TextView tv = new TextView(this);
-            tv.setText(subjectModels.get(i).getSubject());
-        }
-
-    }
-
     private void showAlertDialog(List<SubjectModel> subjectModels) {
+
+//        LiveData<List<FollowingEntry>> followers = viewModel.getFollowers();
+//        followers.observe(this, new Observer<List<FollowingEntry>>() {
+//            @Override
+//            public void onChanged(List<FollowingEntry> followingEntries) {
+//
+//            }
+//        });
+
         List<String> subjectsFollowing = new ArrayList<>();
         subjectsFollowing = sharedPreferencesUtils.getFollowList("SUBJECTS");
         boolean[] selectedAlready = new boolean[subjectModels.size()];
@@ -164,6 +161,7 @@ public class SelectFollowingActivity extends AppCompatActivity {
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setTitle("Select Subjects to follow")
+                .setCancelable(false)
                 .setMultiChoiceItems(subjectArray, selectedAlready, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
@@ -178,7 +176,7 @@ public class SelectFollowingActivity extends AppCompatActivity {
                 }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        dialog.dismiss();
                     }
                 });
         builder.create().show();
@@ -202,7 +200,6 @@ public class SelectFollowingActivity extends AppCompatActivity {
         }
         followingSubjects.removeAll(notFollowingAnyMore);
         sharedPreferencesUtils.setFollowList("SUBJECTS", followingSubjects);
-        Logger.addLogAdapter(new AndroidLogAdapter());
         Logger.d(followingSubjects);
     }
 
