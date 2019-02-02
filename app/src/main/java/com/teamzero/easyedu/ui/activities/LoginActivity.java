@@ -2,15 +2,15 @@ package com.teamzero.easyedu.ui.activities;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.teamzero.easyedu.R;
 
 import java.util.Arrays;
@@ -22,20 +22,14 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
+        isUserSigninIn();
 
-        if(FirebaseAuth.getInstance().getCurrentUser() == null) {
-            List<AuthUI.IdpConfig> signInIntentBuilders = Arrays.asList(
-                    new AuthUI.IdpConfig.EmailBuilder().build(),
-                    new AuthUI.IdpConfig.GoogleBuilder().build());
+    }
 
-            startActivityForResult(
-                    AuthUI.getInstance()
-                            .createSignInIntentBuilder()
-                            .setAvailableProviders(signInIntentBuilders)
-                            .setIsSmartLockEnabled(false)
-                            .build(), 200
-            );
-        }
+    @OnClick (R.id.sign_in_button)
+    void openSignIn() {
+        isUserSigninIn();
     }
 
     @Override
@@ -48,6 +42,22 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
+        }
+    }
+
+    private void isUserSigninIn() {
+        if(FirebaseAuth.getInstance().getCurrentUser() == null) {
+            List<AuthUI.IdpConfig> signInIntentBuilders = Arrays.asList(
+                    new AuthUI.IdpConfig.EmailBuilder().build(),
+                    new AuthUI.IdpConfig.GoogleBuilder().build());
+
+            startActivityForResult(
+                    AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setAvailableProviders(signInIntentBuilders)
+                            .setIsSmartLockEnabled(false)
+                            .build(), 200
+            );
         }
     }
 }

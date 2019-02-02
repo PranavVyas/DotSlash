@@ -18,7 +18,6 @@
         </activity>
         <activity android:name=".ui.activities.UploadDocumentActivity" />
         <activity android:name=".ui.activities.MainActivity" />
-        <activity android:name=".Main2Activity" />
     </application>
 
 </manifest>
