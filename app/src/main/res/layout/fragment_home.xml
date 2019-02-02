@@ -6,7 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.HomeFragment">
 
-
+    <com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_home_frag_upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:fabText="Upload Now"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_home_frag_main"
         android:layout_width="0dp"
