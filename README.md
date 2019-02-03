@@ -27,6 +27,7 @@ The country has always been striving to get education to the commons in the most
 - [Glide](https://github.com/bumptech/glide) 
 - [GSON](https://github.com/google/gson)
 - [MaterialDrawer](https://github.com/mikepenz/MaterialDrawer)
+- [MLKit](https://developers.google.com/ml-kit/)
 - [Logger](https://github.com/orhanobut/logger)
 - [Stetho](https://github.com/facebook/stetho)
 
