@@ -13,6 +13,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:textAlignment="center"
+        app:fabColor="#F50057"
         app:fabIcon="@drawable/ic_upload"
         app:fabText="Upload Now"
         app:layout_constraintBottom_toBottomOf="parent"
