@@ -31,6 +31,8 @@ The country has always been striving to get education to the commons in the most
 - [Logger](https://github.com/orhanobut/logger)
 - [Stetho](https://github.com/facebook/stetho)
 
+## :movie_camera: [For Demo Video, Click Here](https://www.youtube.com/watch?v=cyFQ3xoSOC4&feature=youtu.be)
+
 ## Screenshots
 <table>
      <tr>
