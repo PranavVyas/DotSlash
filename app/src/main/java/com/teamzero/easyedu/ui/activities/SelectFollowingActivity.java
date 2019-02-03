@@ -1,6 +1,7 @@
 package com.teamzero.easyedu.ui.activities;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -203,4 +204,9 @@ public class SelectFollowingActivity extends AppCompatActivity {
         Logger.d(followingSubjects);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, MainActivity.class));
+    }
 }

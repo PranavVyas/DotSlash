@@ -249,7 +249,7 @@ public class UploadDocumentActivity extends AppCompatActivity {
     private void startUploadingFile(Uri uri) {
         Snackbar snackbar = Snackbar.make(findViewById(R.id.parent_view), "Uploading...", Snackbar.LENGTH_INDEFINITE);
         snackbar.show();
-        child = mRef.child("images/" + userName + "/items/" + name + System.currentTimeMillis() + uri.getLastPathSegment());
+        child = mRef.child("images/" + userName + "/items/" + name + name + name + "169961" + uri.getLastPathSegment());
         uploadTask = child.putFile(uri);
         viewModel.setUploadTask(uploadTask);
         uploadTask.addOnSuccessListener(taskSnapshot -> {

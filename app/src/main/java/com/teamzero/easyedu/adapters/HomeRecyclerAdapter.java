@@ -3,6 +3,8 @@ package com.teamzero.easyedu.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +12,10 @@ import android.widget.TextView;
 
 import com.teamzero.easyedu.R;
 import com.teamzero.easyedu.models.UploadDocumentModel;
+import com.teamzero.easyedu.ui.activities.DocViewerActivity;
 import com.teamzero.easyedu.utils.ConverterUtils;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -22,11 +26,13 @@ import butterknife.ButterKnife;
 
 public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapter.HomeItemHolder> {
 
+    private File file;
     private List<UploadDocumentModel> dataItems;
     private Context context;
 
     public HomeRecyclerAdapter(Context context) {
         this.context = context;
+        file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
     }
 
     @NonNull
@@ -49,7 +55,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         return (dataItems == null) ? 0 : dataItems.size();
     }
 
-    class HomeItemHolder extends RecyclerView.ViewHolder {
+    class HomeItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.tv_reycler_home_item_name)
         TextView tvItemName;
@@ -62,8 +68,34 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
 
         HomeItemHolder(@NonNull View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(v -> context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(dataItems.get(getAdapterPosition()).getUrl()))));
+        }
+
+        @Override
+        public void onClick(View v) {/*
+            for (int i = 0; i < dataItems.size(); i++)
+                Log.e("EEE", i + " " + dataItems.get(i).getTitle());*/
+            // Log.e("EEE", getAdapterPosition()+"");
+
+            File[] files = file.listFiles();
+            String title = dataItems.get(getAdapterPosition()).getTitle();
+            String date = String.valueOf(dataItems.get(getAdapterPosition()).getTimestamp());
+            String filePath = "";
+            boolean fileFound = false;
+            if(files != null) {
+                for(File eachFile : files) {
+                    if(eachFile.getName().contains(title + title + title + "169961")) {
+                        Log.e("EEE", eachFile.getAbsolutePath());
+                        fileFound = true;
+                        //TODO: Open In App
+                        break;
+                    }
+                }
+                if(!fileFound)
+                    context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(dataItems.get(getAdapterPosition()).getUrl())));
+            }
+
         }
     }
 
