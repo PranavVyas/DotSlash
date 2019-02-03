@@ -87,6 +87,9 @@ public class HomeFragment extends Fragment
 
     private void refreshEntries() {
         FireStoreQueryLiveData queryLiveData = new FireStoreQueryLiveData(collectionReference);
+        if (queryLiveData.hasActiveObservers()) {
+            queryLiveData.removeObservers(getActivity());
+        }
         queryLiveData.observe(getActivity(), new Observer<QuerySnapshot>() {
             @Override
             public void onChanged(QuerySnapshot queryDocumentSnapshots) {

@@ -1,9 +1,6 @@
 package com.teamzero.easyedu.ui.activities;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -14,6 +11,7 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.teamzero.easyedu.R;
 import com.teamzero.easyedu.ui.fragments.HomeFragment;
 import com.teamzero.easyedu.ui.fragments.ProfileFragment;
+import com.teamzero.easyedu.ui.fragments.SearchFragment;
 import com.teamzero.easyedu.ui.fragments.SettingsFragment;
 import com.teamzero.easyedu.utils.NavigationUtils;
 import com.teamzero.easyedu.viewmodel.MainViewModel;
@@ -21,12 +19,12 @@ import com.teamzero.easyedu.viewmodel.MainViewModel;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.teamzero.easyedu.utils.NavigationUtils.ID_HOME;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationUtils.OnDrawerItemSelectedListener {
@@ -53,9 +51,15 @@ public class MainActivity extends AppCompatActivity implements NavigationUtils.O
 
     private void executeAction(int identifier) {
         switch (identifier) {
-            case NavigationUtils.ID_HOME:
+            case ID_HOME:
                 HomeFragment home = new HomeFragment();
                 swapFragment(home, identifier);
+                mainViewModel.setCurrentFragmentId(identifier);
+                break;
+
+            case NavigationUtils.ID_SEARCH:
+                SearchFragment searchFragment = new SearchFragment();
+                swapFragment(searchFragment, identifier);
                 mainViewModel.setCurrentFragmentId(identifier);
                 break;
 
@@ -107,4 +111,15 @@ public class MainActivity extends AppCompatActivity implements NavigationUtils.O
     }
 
 
+    @Override
+    public void onBackPressed() {
+        if (currentFragmentId != ID_HOME) {
+            HomeFragment homeFragment = new HomeFragment();
+            swapFragment(homeFragment, ID_HOME);
+            mainViewModel.setCurrentFragmentId(ID_HOME);
+            drawer.setSelection(ID_HOME);
+            return;
+        }
+        super.onBackPressed();
+    }
 }

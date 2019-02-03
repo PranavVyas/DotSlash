@@ -18,9 +18,10 @@ import androidx.appcompat.widget.Toolbar;
 public class NavigationUtils {
 
     public static final int ID_HOME = 1;
-    public static final int ID_SETTINGS = 2;
-    public static final int ID_MY_PROFILE = 3;
-    public static final int ID_SIGN_OUT = 4;
+    public static final int ID_SETTINGS = 3;
+    public static final int ID_MY_PROFILE = 4;
+    public static final int ID_SIGN_OUT = 5;
+    public static final int ID_SEARCH = 2;
 
 
     public static Drawer getDrawer(Activity activity, Toolbar toolbar, FirebaseUser currUser) {
@@ -38,6 +39,13 @@ public class NavigationUtils {
                 .withName("My Profile")
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
                     mCallback.onDrawerItemSelected(ID_MY_PROFILE);
+                    return false;
+                });
+
+        PrimaryDrawerItem search = new PrimaryDrawerItem()
+                .withName("Search Items")
+                .withOnDrawerItemClickListener((view, position, drawerItem) -> {
+                    mCallback.onDrawerItemSelected(ID_SEARCH);
                     return false;
                 });
 
@@ -77,6 +85,7 @@ public class NavigationUtils {
                 )
                 .addDrawerItems(
                         home,
+                        search,
                         myProfile,
                         settings,
                         signOut
