@@ -30,6 +30,7 @@ public class NavigationUtils {
         //TODO Implement Place holder and error image
         PrimaryDrawerItem home = new PrimaryDrawerItem()
                 .withName("Home")
+                .withIcon(R.drawable.ic_home)
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
                     mCallback.onDrawerItemSelected(ID_HOME);
                     return false;
@@ -37,6 +38,7 @@ public class NavigationUtils {
 
         PrimaryDrawerItem myProfile = new PrimaryDrawerItem()
                 .withName("My Profile")
+                .withIcon(R.drawable.ic_profile)
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
                     mCallback.onDrawerItemSelected(ID_MY_PROFILE);
                     return false;
@@ -44,6 +46,7 @@ public class NavigationUtils {
 
         PrimaryDrawerItem search = new PrimaryDrawerItem()
                 .withName("Search Items")
+                .withIcon(R.drawable.ic_search)
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
                     mCallback.onDrawerItemSelected(ID_SEARCH);
                     return false;
@@ -51,6 +54,7 @@ public class NavigationUtils {
 
         PrimaryDrawerItem settings = new PrimaryDrawerItem()
                 .withName("Settings")
+                .withIcon(R.drawable.ic_settings)
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
                     mCallback.onDrawerItemSelected(ID_SETTINGS);
                     return false;
@@ -58,6 +62,7 @@ public class NavigationUtils {
 
         PrimaryDrawerItem signOut = new PrimaryDrawerItem()
                 .withName("Sign Out")
+                .withIcon(R.drawable.ic_log_in_out)
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
                     mCallback.onDrawerItemSelected(ID_SIGN_OUT);
                     return false;

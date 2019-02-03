@@ -113,7 +113,10 @@ public class MainActivity extends AppCompatActivity implements NavigationUtils.O
 
     @Override
     public void onBackPressed() {
-        if (currentFragmentId != ID_HOME) {
+        if (drawer.isDrawerOpen()) {
+            drawer.closeDrawer();
+            return;
+        } else if (currentFragmentId != ID_HOME) {
             HomeFragment homeFragment = new HomeFragment();
             swapFragment(homeFragment, ID_HOME);
             mainViewModel.setCurrentFragmentId(ID_HOME);

@@ -1,5 +1,7 @@
 package com.teamzero.easyedu.adapters;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -9,7 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.teamzero.easyedu.R;
 import com.teamzero.easyedu.models.UploadDocumentModel;
 import com.teamzero.easyedu.utils.ConverterUtils;
@@ -31,7 +40,29 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
 
     public HomeRecyclerAdapter(Context context) {
         this.context = context;
-        file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        checkPermission();
+    }
+
+    private void checkPermission() {
+        Dexter.withActivity((Activity) context)
+                .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+                        Toast.makeText(context, "Thank you for giving permission", Toast.LENGTH_SHORT).show();
+                        file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {
+                        Toast.makeText(context, "Permission is must for opening local files", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).check();
     }
 
     @NonNull
@@ -52,6 +83,11 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
     @Override
     public int getItemCount() {
         return (dataItems == null) ? 0 : dataItems.size();
+    }
+
+    public void setDataItem(List<UploadDocumentModel> dataItems) {
+        this.dataItems = dataItems;
+        notifyDataSetChanged();
     }
 
     class HomeItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -76,31 +112,28 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
             for (int i = 0; i < dataItems.size(); i++)
                 Log.e("EEE", i + " " + dataItems.get(i).getTitle());*/
             // Log.e("EEE", getAdapterPosition()+"");
-
+            if (file == null) {
+                return;
+            }
             File[] files = file.listFiles();
             String title = dataItems.get(getAdapterPosition()).getTitle();
             String date = String.valueOf(dataItems.get(getAdapterPosition()).getTimestamp());
             String filePath = "";
             boolean fileFound = false;
-            if(files != null) {
-                for(File eachFile : files) {
-                    if(eachFile.getName().contains(title + title + title + "169961")) {
+            if (files != null) {
+                for (File eachFile : files) {
+                    if (eachFile.getName().contains(title + title + title + "169961")) {
                         Log.e("EEE", eachFile.getAbsolutePath());
                         fileFound = true;
                         //TODO: Open In App
                         break;
                     }
                 }
-                if(!fileFound)
+                if (!fileFound)
                     context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(dataItems.get(getAdapterPosition()).getUrl())));
             }
 
         }
-    }
-
-    public void setDataItem(List<UploadDocumentModel> dataItems) {
-        this.dataItems = dataItems;
-        notifyDataSetChanged();
     }
 
 

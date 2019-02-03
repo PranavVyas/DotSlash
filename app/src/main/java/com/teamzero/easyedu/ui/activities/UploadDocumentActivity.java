@@ -7,21 +7,17 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.orhanobut.logger.Logger;
@@ -36,9 +32,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,6 +53,10 @@ public class UploadDocumentActivity extends AppCompatActivity {
     Spinner spinnerSem;
     @BindView(R.id.spinner_upload_document_subject)
     Spinner spinnerSubject;
+    @BindView(R.id.tv_upload_document_preview_document)
+    TextView uploadDocumentName;
+    @BindView(R.id.toolbar2)
+    Toolbar toolbar;
 
     @BindView(R.id.btn_upload_document_upload)
     Button btnUpload;
@@ -87,6 +87,8 @@ public class UploadDocumentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_document);
         ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         viewModel = ViewModelProviders.of(this).get(UploadDocumentViewModel.class);
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         userName = mainViewModel.getCurrUser().getDisplayName();
@@ -272,6 +274,7 @@ public class UploadDocumentActivity extends AppCompatActivity {
     private void getDownloadUrl(UploadTask.TaskSnapshot taskSnapshot) {
         taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(uri -> {
             downloadUri = uri;
+            uploadDocumentName.setText("Document is Uploaded !");
             btnUpload.setEnabled(true);
         }).addOnFailureListener(e -> {
             downloadUri = null;

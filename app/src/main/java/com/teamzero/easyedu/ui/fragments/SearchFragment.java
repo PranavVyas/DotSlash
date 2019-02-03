@@ -177,17 +177,6 @@ public class SearchFragment extends Fragment {
 
     }
 
-//    private boolean validateName() {
-//        searchName = etSearch.getText().toString().trim();
-//        if (searchName.length() == 0) {
-//            inputSearch.setError("Please Input Name");
-//            return false;
-//        } else {
-//            inputSearch.setErrorEnabled(false);
-//            return true;
-//        }
-//    }
-
     private void setUpLiveData() {
         Query query = mCollectionReference.whereEqualTo("branch", selectedBranch).whereEqualTo("sem", selectedSem);
         FireStoreQueryLiveData subjectLiveData = new FireStoreQueryLiveData(query);
