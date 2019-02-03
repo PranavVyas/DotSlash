@@ -49,7 +49,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
                 .withListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse response) {
-                        Toast.makeText(context, "Thank you for giving permission", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(context, "Thank you for giving permission", Toast.LENGTH_SHORT).show();
                         file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
                     }
 

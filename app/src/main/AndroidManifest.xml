@@ -18,14 +18,15 @@
         <activity android:name=".ui.activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.activities.UploadDocumentActivity"
             android:parentActivityName=".ui.activities.MainActivity" />
-        <activity android:name=".ui.activities.MainActivity" />
+        <activity
+            android:name=".ui.activities.MainActivity"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

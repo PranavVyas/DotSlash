@@ -75,6 +75,11 @@ dependencies {
     //Premission
     implementation 'com.karumi:dexter:5.0.0'
 
+    //Chip
+    implementation "com.hootsuite.android:nachos:1.1.1"
+    //FlowLayout
+    implementation 'com.nex3z:flow-layout:1.2.4'
+
 
 
 }

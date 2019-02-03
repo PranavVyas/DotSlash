@@ -1,19 +1,21 @@
 package com.teamzero.easyedu.ui.activities;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.nex3z.flowlayout.FlowLayout;
 import com.orhanobut.logger.Logger;
 import com.teamzero.easyedu.R;
 import com.teamzero.easyedu.models.SubjectModel;
@@ -36,8 +38,8 @@ public class SelectFollowingActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar_select_following)
     Toolbar toolbar;
-    @BindView(R.id.linear_select_following_container_subject)
-    LinearLayout linearContainer;
+    @BindView(R.id.flowlayout_select_following)
+    FlowLayout flowLayout;
     @BindView(R.id.spinner_select_following_branch)
     Spinner spinnerBranch;
     @BindView(R.id.spinner_select_following_sem)
@@ -68,6 +70,7 @@ public class SelectFollowingActivity extends AppCompatActivity {
         initDatabase();
         setUpBranchSpinner();
         setUpSemSpinner();
+        showFollowingChips();
     }
 
     private void initDatabase() {
@@ -202,12 +205,21 @@ public class SelectFollowingActivity extends AppCompatActivity {
         }
         followingSubjects.removeAll(notFollowingAnyMore);
         sharedPreferencesUtils.setFollowList("SUBJECTS", followingSubjects);
+        showFollowingChips();
         Logger.d(followingSubjects);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(this, MainActivity.class));
+    private void showFollowingChips() {
+        List<String> sujects = sharedPreferencesUtils.getFollowList("SUBJECTS");
+        flowLayout.removeAllViews();
+        for (int i = 0; i < sujects.size(); i++) {
+            TextView tv = new TextView(getApplicationContext());
+            tv.setText(sujects.get(i));
+            tv.setPadding(32, 8, 32, 8);
+            tv.setBackgroundResource(R.drawable.chip_background);
+            tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            flowLayout.setChildSpacing(16);
+            flowLayout.addView(tv);
+        }
     }
 }
