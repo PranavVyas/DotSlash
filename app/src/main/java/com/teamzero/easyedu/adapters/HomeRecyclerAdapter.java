@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.teamzero.easyedu.R;
 import com.teamzero.easyedu.models.UploadDocumentModel;
-import com.teamzero.easyedu.ui.activities.DocViewerActivity;
 import com.teamzero.easyedu.utils.ConverterUtils;
 
 import java.io.File;
