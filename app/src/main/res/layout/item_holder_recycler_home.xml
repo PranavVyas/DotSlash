@@ -58,12 +58,16 @@
                 android:id="@+id/tv_reycler_home_subject"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
                 android:layout_margin="8dp"
-                android:textColor="@android:color/white"
+                android:background="@drawable/chip_background"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:padding="4dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_reycler_home_item_name"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"
                 tools:text="TextView" />
 
             <TextView

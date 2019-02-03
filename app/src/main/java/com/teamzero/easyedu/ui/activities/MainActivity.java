@@ -17,6 +17,7 @@ import com.teamzero.easyedu.utils.NavigationUtils;
 import com.teamzero.easyedu.viewmodel.MainViewModel;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements NavigationUtils.O
     private Drawer drawer;
     private int currentFragmentId;
 
+    private ActionBar actionBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationUtils.O
         ButterKnife.bind(this);
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         setSupportActionBar(toolbar);
+        actionBar = getSupportActionBar();
         drawer = NavigationUtils.getDrawer(this, toolbar, mainViewModel.getCurrUser());
         currentFragmentId = mainViewModel.getCuurentFragmentId();
         drawer.setSelection(currentFragmentId);
@@ -55,24 +59,28 @@ public class MainActivity extends AppCompatActivity implements NavigationUtils.O
                 HomeFragment home = new HomeFragment();
                 swapFragment(home, identifier);
                 mainViewModel.setCurrentFragmentId(identifier);
+                actionBar.setTitle("Home");
                 break;
 
             case NavigationUtils.ID_SEARCH:
                 SearchFragment searchFragment = new SearchFragment();
                 swapFragment(searchFragment, identifier);
                 mainViewModel.setCurrentFragmentId(identifier);
+                actionBar.setTitle("Search");
                 break;
 
             case NavigationUtils.ID_SETTINGS:
                 SettingsFragment settingsFragment = new SettingsFragment();
                 swapFragment(settingsFragment, identifier);
                 mainViewModel.setCurrentFragmentId(identifier);
+                actionBar.setTitle("Settings");
                 break;
 
             case NavigationUtils.ID_MY_PROFILE:
                 ProfileFragment profileFragment = new ProfileFragment();
                 swapFragment(profileFragment, identifier);
                 mainViewModel.setCurrentFragmentId(identifier);
+                actionBar.setTitle("My Profile");
                 break;
 
             case NavigationUtils.ID_SIGN_OUT:

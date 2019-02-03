@@ -62,6 +62,7 @@ public class SelectFollowingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_following);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Select Following");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        viewModel = ViewModelProviders.of(this).get(SelectFollwingViewModel.class);
         branches = new ArrayList<>(Arrays.asList(this.getResources().getStringArray(R.array.branches)));

@@ -13,16 +13,23 @@ import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity {
+
+    @BindView(R.id.toolbar_login)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Login");
         isUserSigninIn();
     }
 
@@ -55,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                             .createSignInIntentBuilder()
                             .setAvailableProviders(signInIntentBuilders)
                             .setIsSmartLockEnabled(false)
+                            .setLogo(R.mipmap.ic_launcher)
                             .build(), 200
             );
         } else {

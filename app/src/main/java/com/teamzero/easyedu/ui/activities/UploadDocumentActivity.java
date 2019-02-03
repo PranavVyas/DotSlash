@@ -267,7 +267,7 @@ public class UploadDocumentActivity extends AppCompatActivity {
                                         .getOnDeviceTextRecognizer();
 
                                 if (image != null) {
-                                    // Task failed with an exception
+                                    // Task failed w.ith an exception
 // ...
                                     Task<FirebaseVisionText> result =
                                             detector.processImage(image)

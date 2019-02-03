@@ -125,6 +125,8 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
                     if (eachFile.getName().contains(title + title + title + "169961")) {
                         Log.e("EEE", eachFile.getAbsolutePath());
                         fileFound = true;
+                        String path = eachFile.getAbsolutePath();
+
                         //TODO: Open In App
                         break;
                     }
