@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/background_normal"
     tools:context=".ui.activities.SelectFollowingActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -35,6 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:textAppearance="@style/MyTextTheme"
         android:layout_marginEnd="8dp"
         android:text="@string/please_select_subject_to_start_following"
         android:textAlignment="center"
@@ -87,6 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:textAppearance="@style/MyTextTheme"
         android:layout_marginEnd="16dp"
         android:text="You are already following these topics"
         android:textAlignment="center"

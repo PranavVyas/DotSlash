@@ -3,4 +3,8 @@
     <color name="colorPrimary">#1565C0</color>
     <color name="colorPrimaryDark">#1565C0</color>
     <color name="colorAccent">#F50057</color>
+    <color name="material_drawer_dark_primary_icon">#FFEB3B</color>
+
+    <color name="material_drawer_primary_icon">#FFEB3B</color>
+
 </resources>

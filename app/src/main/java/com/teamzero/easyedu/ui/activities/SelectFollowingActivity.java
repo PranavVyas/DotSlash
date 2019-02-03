@@ -78,7 +78,7 @@ public class SelectFollowingActivity extends AppCompatActivity {
     }
 
     private void setUpBranchSpinner() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, branches);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_layout_colored_simple, branches);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerBranch.setAdapter(adapter);
         spinnerBranch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -99,7 +99,7 @@ public class SelectFollowingActivity extends AppCompatActivity {
     }
 
     private void setUpSemSpinner() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sems);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_layout_colored_simple, sems);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSem.setAdapter(adapter);
         spinnerSem.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -12,8 +12,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -41,7 +39,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -151,7 +148,7 @@ public class UploadDocumentActivity extends AppCompatActivity {
     }
 
     private void setUpSemAdapter() {
-        ArrayAdapter<String> adapterSem = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sems);
+        ArrayAdapter<String> adapterSem = new ArrayAdapter<>(this, R.layout.spinner_layout_colored_simple, sems);
         adapterSem.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSem.setAdapter(adapterSem);
 
@@ -179,7 +176,7 @@ public class UploadDocumentActivity extends AppCompatActivity {
     }
 
     private void setUpSubjectSpinner() {
-        ArrayAdapter<String> adapterSubject = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, subjects);
+        ArrayAdapter<String> adapterSubject = new ArrayAdapter<>(this, R.layout.spinner_layout_colored_simple, subjects);
         adapterSubject.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSubject.setAdapter(adapterSubject);
         spinnerSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -200,7 +197,7 @@ public class UploadDocumentActivity extends AppCompatActivity {
     }
 
     private void setUpBranchSpinner() {
-        ArrayAdapter<String> adapterBranch = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, branches);
+        ArrayAdapter<String> adapterBranch = new ArrayAdapter<>(this, R.layout.spinner_layout_colored_simple, branches);
         adapterBranch.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerBranch.setAdapter(adapterBranch);
         spinnerBranch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -390,7 +387,7 @@ public class UploadDocumentActivity extends AppCompatActivity {
     }
 
     private void refreshSubjectSpinner() {
-        ArrayAdapter<String> adapterSubject = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new ArrayList<>(Arrays.asList("Please Select")));
+        ArrayAdapter<String> adapterSubject = new ArrayAdapter<>(this, R.layout.spinner_layout_colored_simple, new ArrayList<>(Arrays.asList("Please Select")));
         selectedSubject = "";
         spinnerSubject.setAdapter(adapterSubject);
     }

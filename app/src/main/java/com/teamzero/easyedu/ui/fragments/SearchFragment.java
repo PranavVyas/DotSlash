@@ -110,7 +110,7 @@ public class SearchFragment extends Fragment {
     }
 
     private void setUpSemAdapter() {
-        ArrayAdapter<String> adapterSem = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, sems);
+        ArrayAdapter<String> adapterSem = new ArrayAdapter<>(getActivity(), R.layout.spinner_layout_colored_simple, sems);
         adapterSem.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSem.setAdapter(adapterSem);
 
@@ -129,7 +129,7 @@ public class SearchFragment extends Fragment {
     }
 
     private void setUpSubjectSpinner() {
-        ArrayAdapter<String> adapterSubject = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, subjects);
+        ArrayAdapter<String> adapterSubject = new ArrayAdapter<>(getActivity(), R.layout.spinner_layout_colored_simple, subjects);
         adapterSubject.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSubject.setAdapter(adapterSubject);
         spinnerSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -150,7 +150,7 @@ public class SearchFragment extends Fragment {
     }
 
     private void setUpBranchSpinner() {
-        ArrayAdapter<String> adapterBranch = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, branches);
+        ArrayAdapter<String> adapterBranch = new ArrayAdapter<>(getContext(), R.layout.spinner_layout_colored_simple, branches);
         adapterBranch.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerBranch.setAdapter(adapterBranch);
         spinnerBranch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

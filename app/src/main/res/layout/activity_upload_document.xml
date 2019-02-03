@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/background_normal"
     android:id="@+id/parent_view"
     tools:context=".ui.activities.UploadDocumentActivity">
 
@@ -22,7 +23,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:textColorHint="@color/md_white_1000"
+
+        app:counterOverflowTextAppearance="@style/MyTextTheme"
         android:layout_marginEnd="8dp"
+        app:helperTextTextAppearance="@style/MyTextTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2">
@@ -30,6 +35,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_upload_document_item_name"
             android:layout_width="match_parent"
+            android:textAppearance="@style/MyTextTheme"
+            android:textColor="@android:color/white"
+            tools:text="jaskajshkjash"
             android:layout_height="wrap_content"
             android:hint="@string/input_name_of_item" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -98,7 +106,7 @@
         android:layout_marginEnd="8dp"
         android:text="@string/select_document"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/switch1"
+        app:layout_constraintStart_toEndOf="@+id/use_ml"
         app:layout_constraintTop_toBottomOf="@+id/text_input_upload_document_author" />
 
     <TextView
@@ -109,6 +117,7 @@
         android:layout_marginTop="9dp"
         android:layout_marginEnd="8dp"
         android:text="@string/no_document_uploaded"
+        android:textAppearance="@style/MyTextTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_upload_document_select" />
@@ -129,6 +138,7 @@
         android:id="@+id/use_ml"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/md_white_1000"
         android:text="@string/use_ml"
         app:layout_constraintBottom_toBottomOf="@+id/btn_upload_document_select"
         app:layout_constraintEnd_toStartOf="@+id/btn_upload_document_select"
