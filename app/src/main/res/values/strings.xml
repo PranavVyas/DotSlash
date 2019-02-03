@@ -32,6 +32,7 @@
     <string name="email">Email</string>
     <string name="please_select_subject_to_start_following">Please select subject to start following</string>
     <string name="select_subjects">Select</string>
+    <string name="search_hint">Search</string>
 
 
 </resources>
