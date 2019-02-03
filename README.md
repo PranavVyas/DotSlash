@@ -32,6 +32,28 @@ The country has always been striving to get education to the commons in the most
 - [Stetho](https://github.com/facebook/stetho)
 
 ## Screenshots
+<table>
+     <tr>
+          <td><img height="500" src="https://i.imgur.com/0RFTZX4.png" /><br /><center><b>Home Screen</b></center></td>
+          <td><img height="500" src="https://i.imgur.com/VKQwikf.png" /><br /><center><b>Login Screen</b></center></td>
+          <td><img height="500" src="https://i.imgur.com/nlG1zfL.png" /><br /><center><b>Navigation Drawer</b></center></td>
+     </tr>
+     <tr>
+          <td><img height="500" src="https://i.imgur.com/AhLGZoj.png" /><br /><center><b>Profile Screen</b></center></td>
+          <td><img height="500" src="https://i.imgur.com/tEZb04X.png" /><br /><center><b>Upload Screen</b></center></td>
+          <td><img height="500" src="https://i.imgur.com/aO5gMNN.png" /><br /><center><b>Upload Screen</b></center></td>
+     </tr>
+     <tr>
+          <td><img height="500" src="https://i.imgur.com/X9BzBoS.png" /><br /><center><b>Upload Screen</b></center></td>
+          <td><img height="500" src="https://i.imgur.com/6kuLrTW.png" /><br /><center><b>Upload Screen</b></center></td>
+          <td><img height="500" src="https://i.imgur.com/OH43BK0.png" /><br /><center><b>Upload Screen</b></center></td>
+     </tr>
+     <tr>
+          <td><img height="500" src="https://i.imgur.com/LMCcqEU.png" /><br /><center><b>Search Screen</b></center></td>
+          <td><img height="500" src="https://i.imgur.com/vneZj9B.png" /><br /><center><b>Following Screen</b></center></td>
+          <td><img height="500" src="https://i.imgur.com/7Io0kaV.png" /><br /><center><b>Following Screen</b></center></td>
+     </tr>
+</table>
 
 ## Project by
      Team[0] - Pranav Vyas, Tirth Patel
