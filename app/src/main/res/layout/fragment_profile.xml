@@ -15,6 +15,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
+        android:textColorHint="@android:color/white"
         android:layout_height="wrap_content"
         android:layout_margin="8dp">
 
@@ -26,6 +27,7 @@
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:hint="@string/username"
+            android:textColor="@android:color/white"
             android:inputType="textEmailAddress"
             android:textColorHint="@color/accent" />
 
@@ -33,6 +35,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
+        android:textColorHint="@android:color/white"
         android:layout_height="wrap_content"
         android:layout_margin="8dp">
 
@@ -42,6 +45,7 @@
             android:layout_height="wrap_content"
             android:clickable="false"
             android:focusable="false"
+            android:textColor="@android:color/white"
             android:focusableInTouchMode="false"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
