@@ -3,6 +3,7 @@ package com.teamzero.easyedu.ui.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,12 +12,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.ml.vision.FirebaseVision;
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.text.FirebaseVisionText;
+import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -28,12 +36,15 @@ import com.teamzero.easyedu.utils.FireStoreQueryLiveData;
 import com.teamzero.easyedu.viewmodel.MainViewModel;
 import com.teamzero.easyedu.viewmodel.UploadDocumentViewModel;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
@@ -57,6 +68,8 @@ public class UploadDocumentActivity extends AppCompatActivity {
     TextView uploadDocumentName;
     @BindView(R.id.toolbar2)
     Toolbar toolbar;
+    @BindView(R.id.use_ml)
+    SwitchCompat switchCompat;
 
     @BindView(R.id.btn_upload_document_upload)
     Button btnUpload;
@@ -241,9 +254,47 @@ public class UploadDocumentActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SELECT_DOCUMENT) {
             if (resultCode == RESULT_OK) {
-                Uri uri = data.getData();
-                selectedDocument = uri;
-                startUploadingFile(selectedDocument);
+                if(data != null) {
+                    selectedDocument = data.getData();
+                    if(getContentResolver().getType(selectedDocument) != null) {
+                        Log.e("EEE", getContentResolver().getType(selectedDocument));
+                        if (getContentResolver().getType(selectedDocument).equals("image/jpg") || getContentResolver().getType(selectedDocument).equals("image/png") || getContentResolver().getType(selectedDocument).equals("image/jpeg")) {
+                            if(switchCompat.isChecked()) {
+                                FirebaseVisionImage image = null;
+                                try {
+                                    image = FirebaseVisionImage.fromFilePath(this, selectedDocument);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance()
+                                        .getOnDeviceTextRecognizer();
+
+                                if (image != null) {
+                                    // Task failed with an exception
+// ...
+                                    Task<FirebaseVisionText> result =
+                                            detector.processImage(image)
+                                                    .addOnSuccessListener(firebaseVisionText -> {
+                                                        // Task completed successfully
+                                                        // ...
+                                                        if (firebaseVisionText.getText().length() < 15) {
+                                                            Toast.makeText(getApplicationContext(), "It seems like the document you\'re trying to upload doesn\'t look like a Study Material or Paper", Toast.LENGTH_SHORT).show();
+                                                        } else {
+                                                            startUploadingFile(selectedDocument);
+                                                        }
+
+                                                    })
+                                                    .addOnFailureListener(
+                                                            Throwable::printStackTrace);
+                                }
+                            } else {
+                                startUploadingFile(selectedDocument);
+                            }
+                        } else {
+                            startUploadingFile(selectedDocument);
+                        }
+                    }
+                }
             }
         }
     }

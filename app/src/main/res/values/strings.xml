@@ -33,6 +33,7 @@
     <string name="please_select_subject_to_start_following">Please select subject to start following</string>
     <string name="select_subjects">Select</string>
     <string name="search_hint">Search</string>
+    <string name="use_ml">Use ML</string>
 
 
 </resources>

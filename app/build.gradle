@@ -80,7 +80,8 @@ dependencies {
     //FlowLayout
     implementation 'com.nex3z:flow-layout:1.2.4'
 
-
+    //MLKit
+    implementation 'com.google.firebase:firebase-ml-vision:19.0.0'
 
 }
 apply plugin: 'com.google.gms.google-services'
